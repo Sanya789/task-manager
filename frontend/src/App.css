@@ -62,7 +62,7 @@ font-weight: bold;
   opacity: 0.8;
 }
 
-.modal .container {
+.modal .modal_container {
   position: absolute;
   top: 25%;
   left: 50%;
@@ -98,4 +98,100 @@ background: white;
 .addNewTodo .btn button:hover {
 filter: brightness(1.5);
 transition: all 200ms ease ;
+}
+
+.addNewTodo form {
+  padding: 1rem 1rem calc(1rem + 40px) 1rem;
+  width: 500px;
+  background: white;
+  border-radius: 4px;
+}
+
+.addNewTodo form img {
+  width: 18px;
+  height: 18px;
+}
+
+.addNewTodo form .text input {
+  padding: 1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.addNewTodo form .text input:focus {
+  outline: none;
+  border-bottom: 1px solid blue;
+}
+
+.addNewTodo form .remind {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.addNewTodo form .p {
+  margin-left: 10px;
+}
+
+.addNewTodo form .titles {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.addNewTodo form .pick-day {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.addNewTodo form .pick-time {
+  padding: 1.5rem;
+}
+
+.addNewTodo form .pick-title {
+  padding: 0.5rem;
+}
+
+.addNewTodo form .pick-title .themes {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.addNewTodo form .pick-title .themes .theme {
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.addNewTodo form .pick-title .themes .active{ 
+  background-color: blue;
+  color: white;
+}
+
+.addNewTodo form .cancel {
+position: absolute;
+top: 0;
+right: 5px;
+cursor: pointer;
+}
+
+.addNewTodo form .confirm {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.addNewTodo form .confirm button{
+width: 100%;
+height: 40px;
+background: blue;
+color: white;
+font-size: 1.1rem;
+border: none;
+border-radius: 0 0 4px 4px;
+cursor: pointer;
 }
