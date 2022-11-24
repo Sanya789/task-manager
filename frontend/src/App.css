@@ -249,3 +249,119 @@ transition: all 200ms ease-in-out;
   width: 20px;
   height: 20px;
 }
+
+/* Titles */
+
+.titles {
+  padding: 1rem;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.titles .header {
+  display: flex;
+  align-items: center;
+}
+
+.titles .header .title{
+display: flex;
+align-items: center;
+flex: 1;
+}
+
+.titles .header .title p{
+margin-left: 5px;
+font-size: 1.1rem;
+font-weight: bold;
+}
+
+.titles .header .btns{
+  display: flex;
+  align-items: center;
+}
+
+.titles .header .btns span {
+  margin-right: 5px;
+}
+
+.titles .header .btns span {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content:  center;
+}
+
+.titles .header .btns span:hover {
+background-color: #ebebeb;
+transition: all 200ms ease-in-out;
+}
+
+.titles .items {
+  padding: 0.5rem;
+}
+
+.titles img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Title */
+
+.Title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  margin: 5px;
+  font-size: 1rem;
+}
+
+.Title .name {
+  cursor: pointer;
+  word-break: break-all;
+}
+
+.Title .btns {
+  display: flex;
+  align-items: center;
+}
+
+.Title .btns .total-todos {
+  position: absolute;
+  right: 0;
+  background: #ebebeb;
+  width: 25px;
+  height: 25px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% ;
+}
+
+.Title .btns .edit-delete {
+  position: absolute;
+  right: 0;
+  display: flex;
+}
+
+.Title .btns .edit-delete span{
+  border-radius: 50%;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content:  center;
+  transition: background 200ms ease-in-out;
+}
+
+.Title .btns .edit-delete span.edit:hover{
+  background: #ebebeb;
+}
+
+.Title .btns .edit-delete span.delete:hover{
+  background: red;
+}
