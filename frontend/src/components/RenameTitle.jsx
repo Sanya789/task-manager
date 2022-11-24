@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react';
+import TitleForm from './TitleForm';
 
-const RenameTitile = () => {
-  return (
-    <div className='renameTitile'></div>
-  )
+const RenameTitile = ({title, setShowModal}) => {
+const[newTitleName, setNewTitleName] = useState(title.name)
+
+const handleSubmit = (e) => {
+
 }
 
-export default RenameTitile
+  return (
+    <div className="RenameTitile">
+      <TitleForm
+        handleSubmit={handleSubmit}
+        heading="Редактировать тему"
+        value={newTitleName}
+        setValue={setNewTitleName}
+        setShowModal={setShowModal}
+        confirmButtonText="Подтвердить"
+      />
+    </div>
+  );
+};
+
+export default RenameTitile;
