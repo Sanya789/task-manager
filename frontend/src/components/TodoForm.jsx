@@ -18,6 +18,8 @@ const TodoForm = ({
   setDay,
   time,
   setTime,
+  todoTitle,
+  setTodoTitle,
   titles,
   showButtons = false,
   setShowModal = false,
@@ -42,7 +44,7 @@ const TodoForm = ({
         <div className="pick-day">
           <div className="title">
             <img src={calendar} className="calendar-icon" alt="calendar-day" />
-            <p>Выберете день</p>
+            <p>Выберите день</p>
           </div>
           <DatePicker
             value={day}
@@ -53,7 +55,7 @@ const TodoForm = ({
         <div className="pick-time">
           <div className="title">
             <img src={clock} className="clock-icon" alt="clock" />
-            <p>Выберете время</p>
+            <p>Выберите время</p>
           </div>
           <TimePicker
             value={time}
@@ -64,14 +66,25 @@ const TodoForm = ({
         <div className="pick-title">
           <div className="title">
             <img src={palette} className="palette-icon" alt="palette" />
-            <p>Выберете тему</p>
+            <p>Выберите тему</p>
           </div>
           <div className="themes">
-            {titles.map((title) => (
-              <div className="theme" key={title.id}>
+            {
+            titles.length > 0 ? 
+            titles.map((title) => (
+              <div 
+              className={`theme ${todoTitle === title.name ? 'active' : ''}`} 
+              key={title.id}
+              onClick={()=> setTodoTitle(title.name)}
+              >
                 {title.name}
               </div>
-            ))}
+            ))
+            : 
+            <div style={{color: 'red'}}>
+              Пожалуйста добавьте тему.
+            </div>
+            }
           </div>
         </div>
         {showButtons && (

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TodoForm from './TodoForm';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Modal from './Modal';
-
+import { TodoContext } from '../context';
 
 const titles = [
   { id: 1, name: 'личное', numOfTodos: 0 },
@@ -12,12 +12,18 @@ const titles = [
 ];
 
 const AddNewTodo = () => {
+  const {selectedTitle} = useContext(TodoContext)
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState('');
   const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
+  const [todoTitle, setTodoTitle] = useState(selectedTitle);
 
   const handleSubmit = () => {};
+
+useEffect(()=>{
+  setTodoTitle(selectedTitle)
+}, [selectedTitle])
 
   return (
     <div className="addNewTodo">
@@ -35,6 +41,8 @@ const AddNewTodo = () => {
             setDay={setDay}
             time={time}
             setTime={setTime}
+            todoTitle={todoTitle}
+            setTodoTitle={setTodoTitle}
             titles={titles}
             showButtons={true}
             setShowModal={setShowModal}

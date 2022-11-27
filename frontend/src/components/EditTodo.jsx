@@ -11,6 +11,7 @@ const EditTodo = () => {
   const [text, setText] = useState('');
   const [day, setDay] = useState();
   const [time, setTime] = useState();
+const [todoTitle, setTodoTitle] = useState()
 
   const handleSubmit = () => {};
 
@@ -26,6 +27,8 @@ const EditTodo = () => {
           setDay={setDay}
           time={time}
           setTime={setTime}
+          todoTitle={todoTitle}
+          setTodoTitle={setTodoTitle}
           titles={titles}
         />
       </div>

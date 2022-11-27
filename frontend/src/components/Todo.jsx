@@ -28,7 +28,7 @@ const Todo = ({ todo }) => {
         <div className="text">
           <p style={{ color: todo.checked ? '#bebebe' : 'black' }}>{todo.text}</p>
           <span>
-            {todo.time} - {todo.title}
+            {todo.time} - {todo.titleName}
           </span>
           <div className={`line ${todo.checked ? 'line-through' : ''}`}></div>
         </div>
