@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import pencil from '../assets/img/pencil.png';
 import cancel from '../assets/img/cancel.png';
 import Modal from './Modal';
 import RenameTitile from './RenameTitle';
+import { TodoContext } from '../context';
 
 const Title = ({ title, edit }) => {
+//Context
+const {setSelectedTitle} = useContext(TodoContext)
+
+  //State
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="Title">
-      <div className="name">{title.name}</div>
+      <div 
+      className="name"
+      onClick={()=>setSelectedTitle(title.name)}
+      >{title.name}</div>
       <div className="btns">
         {edit ? (
           <div className="edit-delete">

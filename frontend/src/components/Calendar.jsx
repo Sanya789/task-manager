@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import calendarDate from '../assets/img/calendar-date.png';
 import caretUp from '../assets/img/caretUp.png';
 import { calendarItems } from '../constants';
+import { TodoContext } from '../context';
 
 const Calendar = () => {
+const {setSelectedTitle} = useContext(TodoContext)
+
   return (
     <div className="calendar">
       <div className="header">
@@ -19,7 +22,11 @@ const Calendar = () => {
       </div>
       <div className="items">
         {calendarItems.map((item) => (
-          <div className="item" key={item}>
+          <div 
+          className="item" 
+          key={item}
+          onClick={()=> setSelectedTitle(item)}
+          >
             {item}
           </div>
         ))}
