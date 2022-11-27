@@ -531,3 +531,19 @@ width: 100%;
   padding-bottom: 2px;
   border-bottom: 1px solid #bebebe;
 }
+
+/* Next Week */
+
+.NextWeek .day{
+  margin: 5px;
+  display: flex;
+}
+
+.NextWeek .day .name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.NextWeek .day .total-todos {
+  margin-left: 10px;
+}

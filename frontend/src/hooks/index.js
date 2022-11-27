@@ -15,10 +15,11 @@ const useTodos = () => {
             ...doc.data(),
           };
         });
+        console.log('subscribed');
         setTodos(data);
       });
     return () => unsubscribe();
-  });
+  }, []);
   return todos;
 };
 
@@ -45,7 +46,7 @@ const useTitles = (todos) => {
         setTitles(data);
       });
     return () => unsubscribe();
-  });
+  }, [todos]);
   return titles;
 };
 

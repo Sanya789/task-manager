@@ -4,22 +4,48 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Modal from './Modal';
 import { TodoContext } from '../context';
+import {calendarItems} from '../constants'
+import firebase from '../firebase'
+import dayjs from 'dayjs';
+import randomcolor from 'randomcolor'
 
-const titles = [
-  { id: 1, name: 'личное', numOfTodos: 0 },
-  { id: 2, name: 'работа', numOfTodos: 1 },
-  { id: 3, name: 'другое', numOfTodos: 2 },
-];
+// const titles = [
+//   { id: 1, name: 'личное', numOfTodos: 0 },
+//   { id: 2, name: 'работа', numOfTodos: 1 },
+//   { id: 3, name: 'другое', numOfTodos: 2 },
+// ];
 
 const AddNewTodo = () => {
-  const {selectedTitle} = useContext(TodoContext)
+  const {titles, selectedTitle} = useContext(TodoContext)
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState('');
   const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
   const [todoTitle, setTodoTitle] = useState(selectedTitle);
 
-  const handleSubmit = () => {};
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if(text && !calendarItems.includes(todoTitle)){
+      firebase
+      .firestore()
+      .collection('todos')
+      .add({
+        text: text,
+        date: dayjs(day).format('MM/DD/YYYY'),
+        day: dayjs(day).format('d'),
+        time: dayjs(time).format('hh:mm A'),
+        checked: false,
+        color: randomcolor(),
+        titleName: todoTitle,
+      })
+      setShowModal(false)
+      setText('')
+      setDay(new Date())
+      setTime(new Date())
+    }
+  };
 
 useEffect(()=>{
   setTodoTitle(selectedTitle)
