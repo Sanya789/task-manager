@@ -15,7 +15,7 @@ const NextWeek = ({ todos }) => {
     const today = parseInt(dayjs().format('d'));
     const arrangeDays = sortedTodosByDay.slice(today).concat(sortedTodosByDay).slice(0, today);
     setWeekTodos(arrangeDays);
-  }, [todos]);
+  }, [setWeekTodos, todos]);
   return (
     <div className="NextWeek">
       {weekTodos.map((day) => (
