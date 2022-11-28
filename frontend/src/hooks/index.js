@@ -49,12 +49,8 @@ const useFilterTodos = (todos, selectedTitle) => {
   return filteredTodos;
 };
 
-const useTitles = (todos) => {
+const useTitles = () => {
   const [titles, setTitles] = useState([]);
-
-  function calculateNumOfTodos(titleName, todos) {
-    return todos.filter((todo) => todo.titleName === titleName).length;
-  }
 
   useEffect(() => {
     let unsubscribe = firebase
@@ -62,18 +58,31 @@ const useTitles = (todos) => {
       .collection('titles')
       .onSnapshot((snapshot) => {
         const data = snapshot.docs.map((doc) => {
-          const titleName = doc.data().name;
           return {
             id: doc.id,
-            name: titleName,
-            numberOfTodos: calculateNumOfTodos(titleName, todos),
+            name: doc.data().name,
           };
         });
         setTitles(data);
       });
     return () => unsubscribe();
-  }, [todos]);
+  }, []);
   return titles;
 };
 
-export { useTodos, useTitles, useFilterTodos };
+const useTitlesWithStats = (titles, todos) => {
+  const [titlesWithStats, setTitlesWithStats] = useState([]);
+
+  useEffect(() => {
+    const data = titles.map((title) => {
+      return {
+        numOfTodos: todos.filter((todo) => todo.titleName === title.name && !todo.checked).length,
+        ...title,
+      };
+    });
+    setTitlesWithStats(data);
+  }, [titles, todos]);
+  return titlesWithStats;
+};
+
+export { useTodos, useTitles, useFilterTodos, useTitlesWithStats };
