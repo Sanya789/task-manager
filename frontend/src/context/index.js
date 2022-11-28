@@ -5,7 +5,8 @@ const TodoContext = createContext()
 const TodoContextProvider = ({children}) => {
   const defaultTitle = 'сегодня';
   const [selectedTitle, setSelectedTitle] = useState(defaultTitle)
-  
+  const [selectedTodo, setSelectedTodo] = useState(undefined)
+
   const todos = useTodos()
   const titles = useTitles()
   const titlesWithStats = useTitlesWithStats(titles, todos)
@@ -18,6 +19,8 @@ const TodoContextProvider = ({children}) => {
       setSelectedTitle,
       todos: filteredTodos,
       titles: titlesWithStats,
+      selectedTodo,
+      setSelectedTodo
     }}
     >
     {children}

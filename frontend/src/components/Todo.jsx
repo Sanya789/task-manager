@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import checkFill from '../assets/img/check-fill.png';
 import checkEmpty from '../assets/img/check-empty.png';
 import arrowClockwise from '../assets/img/arrowClockwise.png';
 import trash from '../assets/img/trash.png';
 import firebase from '../firebase';
 import dayjs from 'dayjs';
+import { TodoContext } from '../context';
 
 const Todo = ({ todo }) => {
   const [hover, setHover] = useState(false);
@@ -31,6 +32,16 @@ const Todo = ({ todo }) => {
 
     firebase.firestore().collection('todos').add(repeatedTodo);
   };
+
+  const { selectedTodo, setSelectedTodo } = useContext(TodoContext);
+
+  const handleDelete = (todo) => {
+    deleteTodo(todo);
+    if (selectedTodo === todo) {
+      setSelectedTodo(undefined);
+    }
+  };
+
   return (
     <div className="Todo">
       <div
@@ -48,7 +59,7 @@ const Todo = ({ todo }) => {
             </span>
           )}
         </div>
-        <div className="text">
+        <div className="text" onClick={() => setSelectedTodo(todo)}>
           <p style={{ color: todo.checked ? '#bebebe' : 'black' }}>{todo.text}</p>
           <span>
             {todo.time} - {todo.titleName}
@@ -62,7 +73,7 @@ const Todo = ({ todo }) => {
             </span>
           )}
         </div>
-        <div className="delete-todo" onClick={() => deleteTodo(todo)}>
+        <div className="delete-todo" onClick={() => handleDelete(todo)}>
           {(hover || todo.checked) && (
             <span>
               <img src={trash} alt="trash" />
