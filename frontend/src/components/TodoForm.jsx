@@ -3,6 +3,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { TextField } from '@mui/material';
+
 import bell from '../assets/img/bell.png';
 import calendar from '../assets/img/calendar.png';
 import clock from '../assets/img/clock.png';
@@ -23,6 +24,8 @@ const TodoForm = ({
   titles,
   showButtons = false,
   setShowModal = false,
+  setFile,
+  uploadFile,
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -69,23 +72,28 @@ const TodoForm = ({
             <p>Выберите тему</p>
           </div>
           <div className="themes">
-            {
-            titles.length > 0 ? 
-            titles.map((title) => (
-              <div 
-              className={`theme ${todoTitle === title.name ? 'active' : ''}`} 
-              key={title.id}
-              onClick={()=> setTodoTitle(title.name)}
-              >
-                {title.name}
-              </div>
-            ))
-            : 
-            <div style={{color: 'red'}}>
-              Пожалуйста добавьте тему.
-            </div>
-            }
+            {titles.length > 0 ? (
+              titles.map((title) => (
+                <div
+                  className={`theme ${todoTitle === title.name ? 'active' : ''}`}
+                  key={title.id}
+                  onClick={() => setTodoTitle(title.name)}>
+                  {title.name}
+                </div>
+              ))
+            ) : (
+              <div style={{ color: 'red' }}>Пожалуйста добавьте тему.</div>
+            )}
           </div>
+        </div>
+        <div className="inputFiles">
+          <input
+            type="file"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
+          />
+          <button onClick={uploadFile}>Прикрепить файл</button>
         </div>
         {showButtons && (
           <>

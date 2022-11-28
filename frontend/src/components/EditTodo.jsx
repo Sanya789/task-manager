@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 import { TodoContext } from '../context';
 import TodoForm from './TodoForm';
-
 import firebase from '../firebase';
 
 const EditTodo = () => {
@@ -11,6 +10,7 @@ const EditTodo = () => {
   const [time, setTime] = useState(new Date());
   const [todoTitle, setTodoTitle] = useState('');
   const { selectedTodo, titles } = useContext(TodoContext);
+
 
   useEffect(() => {
     if (selectedTodo) {
@@ -21,22 +21,21 @@ const EditTodo = () => {
     }
   }, [selectedTodo]);
 
-  useEffect(()=>{
-if(selectedTodo){
-  firebase
-  .firestore()
-  .collection('todos')
-  .doc(selectedTodo.id)
-  .update({
-    text,
-    date: dayjs(day).format('MM/DD/YYYY'),
-    day: dayjs(day).format('d'),
-    time: dayjs(time).format('hh:mm A'),
-    titleName: todoTitle,
-  })
-}
-
-  },[text, day, time, todoTitle ])
+  useEffect(() => {
+    if (selectedTodo) {
+      firebase
+        .firestore()
+        .collection('todos')
+        .doc(selectedTodo.id)
+        .update({
+          text,
+          date: dayjs(day).format('MM/DD/YYYY'),
+          day: dayjs(day).format('d'),
+          time: dayjs(time).format('hh:mm A'),
+          titleName: todoTitle,
+        });
+    }
+  }, [text, day, time, todoTitle]);
 
   const handleSubmit = () => {};
 

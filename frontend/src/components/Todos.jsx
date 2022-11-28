@@ -5,7 +5,7 @@ import { TodoContext } from '../context';
 
 const Todos = () => {
   const {todos, selectedTitle} = useContext(TodoContext);
-  
+
 
   return (
     <div className="Todos">
@@ -14,7 +14,10 @@ const Todos = () => {
         {selectedTitle === 'Неделя' ? (
           <NextWeek todos={todos} />
         ) : (
-          todos.map((todo) => <Todo todo={todo} key={todo.id} />)
+          todos.map((todo) => <Todo 
+          todo={todo} 
+          key={todo.id} 
+          />)
         )}
       </div>
     </div>

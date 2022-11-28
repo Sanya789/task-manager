@@ -4,52 +4,96 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Modal from './Modal';
 import { TodoContext } from '../context';
-import {calendarItems} from '../constants'
-import firebase from '../firebase'
+import { calendarItems } from '../constants';
+import firebase from '../firebase';
 import dayjs from 'dayjs';
-import randomcolor from 'randomcolor'
-
-// const titles = [
-//   { id: 1, name: 'личное', numOfTodos: 0 },
-//   { id: 2, name: 'работа', numOfTodos: 1 },
-//   { id: 3, name: 'другое', numOfTodos: 2 },
-// ];
+import randomcolor from 'randomcolor';
+import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 const AddNewTodo = () => {
-  const {titles, selectedTitle} = useContext(TodoContext)
+  const { titles, selectedTitle } = useContext(TodoContext);
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState('');
   const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
   const [todoTitle, setTodoTitle] = useState(selectedTitle);
+  const [file, setFile] = useState(null);
 
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if(text && !calendarItems.includes(todoTitle)){
-      firebase
-      .firestore()
-      .collection('todos')
-      .add({
-        text: text,
-        date: dayjs(day).format('MM/DD/YYYY'),
-        day: dayjs(day).format('d'),
-        time: dayjs(time).format('hh:mm A'),
-        checked: false,
-        color: randomcolor(),
-        titleName: todoTitle,
-      })
-      setShowModal(false)
-      setText('')
-      setDay(new Date())
-      setTime(new Date())
+  const uploadFile = () => {
+    if (file === null) {
+      return;
+    } else {
+      const storage = firebase.storage();
+      const fileRef = ref(storage, `files/${file.name}`);
+      uploadBytes(fileRef, file).then(() => {
+        console.log('file uploaded successfully');
+      });
     }
   };
 
-useEffect(()=>{
-  setTodoTitle(selectedTitle)
-}, [selectedTitle])
+  const downloadFile = (file) => {
+    const fileName = file;
+    console.log(fileName);
+    const storage = getStorage();
+    getDownloadURL(ref(storage, `files/${fileName}`))
+      .then((url) => {
+    console.log(fileName);
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+    console.log(fileName);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line default-case
+        switch (error.code) {
+          case 'storage/object-not-found':
+            // File doesn't exist
+            break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            break;
+        }
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (text && !calendarItems.includes(todoTitle)) {
+      firebase
+        .firestore()
+        .collection('todos')
+        .add({
+          text: text,
+          date: dayjs(day).format('MM/DD/YYYY'),
+          day: dayjs(day).format('d'),
+          time: dayjs(time).format('hh:mm A'),
+          checked: false,
+          color: randomcolor(),
+          titleName: todoTitle,
+          file: file.name,
+        });
+      setShowModal(false);
+      setText('');
+      setDay(new Date());
+      setTime(new Date());
+      setFile('');
+    }
+  };
+
+  useEffect(() => {
+    setTodoTitle(selectedTitle);
+  }, [selectedTitle]);
 
   return (
     <div className="addNewTodo">
@@ -72,6 +116,10 @@ useEffect(()=>{
             titles={titles}
             showButtons={true}
             setShowModal={setShowModal}
+            file={file}
+            setFile={setFile}
+            uploadFile={uploadFile}
+            downloadFile={downloadFile}
           />
         </LocalizationProvider>
       </Modal>

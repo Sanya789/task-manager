@@ -6,9 +6,26 @@ import trash from '../assets/img/trash.png';
 import firebase from '../firebase';
 import dayjs from 'dayjs';
 import { TodoContext } from '../context';
+import { ref, getDownloadURL, getStorage } from 'firebase/storage';
 
 const Todo = ({ todo }) => {
   const [hover, setHover] = useState(false);
+  // const [file, setFile] = useState(null);
+  const fileName = todo.file;
+  const downloadFile = async (x) => {
+    x = fileName
+    const storage = getStorage();
+    getDownloadURL(ref(storage, `files/${x}`)).then((url) => {
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = (event) => {
+        const blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+      window.open(url)
+    });
+  };
 
   const deleteTodo = (todo) => {
     firebase.firestore().collection('todos').doc(todo.id).delete();
@@ -73,6 +90,7 @@ const Todo = ({ todo }) => {
             </span>
           )}
         </div>
+        <button onClick={() => downloadFile(todo.file)}>Скачать файл</button>
         <div className="delete-todo" onClick={() => handleDelete(todo)}>
           {(hover || todo.checked) && (
             <span>
