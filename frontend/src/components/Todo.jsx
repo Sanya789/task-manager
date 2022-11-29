@@ -3,6 +3,7 @@ import checkFill from '../assets/img/check-fill.png';
 import checkEmpty from '../assets/img/check-empty.png';
 import arrowClockwise from '../assets/img/arrowClockwise.png';
 import trash from '../assets/img/trash.png';
+import download from '../assets/img/326639_download_file_icon.png'
 import firebase from '../firebase';
 import dayjs from 'dayjs';
 import { TodoContext } from '../context';
@@ -90,7 +91,12 @@ const Todo = ({ todo }) => {
             </span>
           )}
         </div>
-        <button onClick={() => downloadFile(todo.file)}>Скачать файл</button>
+        <div className='download' onClick={() => downloadFile(todo.file)}>
+          <span>
+            <img src={download} alt='download'/>
+          </span>
+        </div>
+        {/* <button >Скачать файл</button> */}
         <div className="delete-todo" onClick={() => handleDelete(todo)}>
           {(hover || todo.checked) && (
             <span>

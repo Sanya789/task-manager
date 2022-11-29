@@ -60,7 +60,7 @@ font-weight: bold;
   width: 100vw;
   height: 100vh;
   background-color: black;
-  opacity: 0.8;
+  opacity: 0.9;
   z-index: 99;
 }
 
@@ -70,13 +70,13 @@ font-weight: bold;
   left: 50%;
 transform: translate(-50%, -25%);
 background: white;
-
 }
 
 /* addNewTodo */
 
 .addNewTodo {
   border-bottom: 1px solid #ebebeb;
+
 }
 
 .addNewTodo .btn {
@@ -154,6 +154,12 @@ transition: all 200ms ease ;
   padding: 0.5rem;
 }
 
+.TodoForm .pick-title .title{
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
 .TodoForm .pick-title .themes {
   display: flex;
   flex-wrap: wrap;
@@ -196,6 +202,33 @@ font-size: 1.1rem;
 border: none;
 border-radius: 0 0 4px 4px;
 cursor: pointer;
+}
+
+.TodoForm .inputFiles {
+  padding: 0.5rem;
+}
+
+.TodoForm .inputFiles input{
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.TodoForm .inputFiles button{
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  background-color: rgb(0, 81, 255);
+  color: white;
+  cursor: pointer;
+}
+
+.TodoForm .inputFiles button:hover{
+  filter: brightness(1.5);
+transition: all 200ms ease ;
 }
 
 /* Calendar */
@@ -522,6 +555,7 @@ width: 100%;
 
   border-radius: 4px;
   opacity: 0.9;
+  overflow-y: auto;
 }
 
 .EditTodo .header {
