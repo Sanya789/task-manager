@@ -1,3 +1,6 @@
 # task-manager
-simple task manager
-https://todo-app-56163.web.app/
+Task manager with Themes, Calendar and File uploading/dowloading.
+You can Edit Themes and Tasks.
+As a Back-end I use Firebase with Firestore
+
+# Link: https://todo-app-56163.web.app/
